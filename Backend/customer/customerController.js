@@ -9,12 +9,12 @@ module.exports = router;
 // CREATES A NEW CUSTOMER
 router.post('/', function (req, res) {
 
-    req.check('name', 'invalid name').notEmpty();
-    req.check('lastName', 'invalid lastName').notEmpty();
-    req.check('gender', 'invalid gender').notEmpty();
-    req.check('street', 'invalid street').notEmpty();
-    req.check('city', 'invalid city').notEmpty();
-    req.check('postCode', 'invalid postCode').notEmpty();
+    req.check('name', 'name field is required').notEmpty().withMessage('invalid name');
+    req.check('lastName', 'lastName field is required').notEmpty().withMessage('invalid lastname');
+    req.check('gender', 'gender field is required').notEmpty().withMessage('invalid gender');
+    req.check('street', 'street field is required').notEmpty().withMessage('invalid street');
+    req.check('city', 'city field is required').notEmpty().withMessage('invalid city');
+    req.check('postCode', 'postCode field is required').notEmpty().withMessage('invalid postcode');
 
 
     var errors = req.validationErrors();
@@ -38,7 +38,7 @@ router.post('/', function (req, res) {
         );
     }
     else{
-        return res.status(500).send("Validationproblems");
+        return res.status(400).send("has a validationerror");
     }
 });
 
@@ -99,7 +99,7 @@ router.put('/:id', function (req, res) {
         });
     }
     else{
-        return res.status(500).send("Validationproblems");
+      return res.status(400).send("has a validationerror");
     }
 });
 

@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
+import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
 
 
 const url = "http://localhost:8080/customers";
@@ -100,77 +101,91 @@ class Change extends Component {
                 aria-labelledby="form-dialog-title"
             >
                 <DialogTitle id="form-dialog-title">Kunde bearbeiten</DialogTitle>
-                <form>
+                <ValidatorForm
+                  ref='form'
+                  onSubmit={this.submit}
+                  onError={errors => console.log(errors)}
+                >
                 <DialogContent>
-                    
-                <TextField
-                    id="name"
-                    label="Vorname"
-                    type="text"
-                    value={name}
-                    onChange={this.handleChange('name')}
-                    fullWidth
-                />
-                <TextField
-                    margin="dense"
-                    id="lastName"
-                    label="Nachname"
-                    type="text"
-                    value={lastName}
-                    onChange={this.handleChange('lastName')}
-                    fullWidth
-                />
-                <FormControl fullWidth>
-                    <InputLabel htmlFor="gender">
-                        Geschlecht
-                    </InputLabel>
-                    <Select 
-                        value={gender} 
-                        onChange={this.handleChange('gender')}
-                    >
-                        <MenuItem value={"männlich"}>männlich</MenuItem>
-                        <MenuItem value={"weiblich"}>weiblich</MenuItem>
-                    </Select>
-                </FormControl>
-                <TextField
-                    margin="dense"
-                    id="street"
-                    label="Straße"
-                    type="text"
-                    value={street}
-                    onChange={this.handleChange('street')}
-                    fullWidth
-                />
-                <TextField
-            
-                    margin="dense"
-                    id="postCode"
-                    label="Postleitzahl"
-                    type="number"
-                    value={postCode}
-                    onChange={this.handleChange('postCode')}
-                    fullWidth
-                />
-                <TextField
-               
-                    margin="dense"
-                    id="city"
-                    label="Ort"
-                    type="text"
-                    value={city}
-                    onChange={this.handleChange('city')}
-                    fullWidth
-                />
+                    <TextValidator
+                      name='name'
+                      label='Vorname'
+                      type='text'
+                      value={name}
+                      validators={['required']}
+                      errorMessages={['Geben Sie einen Vornamen ein']}
+                      onChange={this.handleChange('name')}
+                      fullWidth
+                    />
+                    <TextValidator
+                      margin='dense'
+                      name='lastName'
+                      label='Nachname'
+                      type='text'
+                      value={lastName}
+                      validators={['required']}
+                      errorMessages={['Geben Sie einen Nachnamen ein']}
+                      onChange={this.handleChange('lastName')}
+                      fullWidth
+                    />
+                    <FormControl fullWidth>
+                        <SelectValidator
+                          value={gender}
+                          name='gender'
+                          label='Geschlecht'
+                          validators={['required']}
+                          errorMessages={['Geben Sie einen Nachnamen ein']}
+                          onChange={this.handleChange('gender')}
+                        >
+                            <MenuItem value={'männlich'}>männlich</MenuItem>
+                            <MenuItem value={'weiblich'}>weiblich</MenuItem>
+                        </SelectValidator>
+                    </FormControl>
+                    <TextValidator
+                      margin='dense'
+                      name='street'
+                      label='Straße'
+                      type='text'
+                      value={street}
+                      validators={['required']}
+                      errorMessages={['geben Sie eine Straße ein']}
+                      onChange={this.handleChange('street')}
+                      fullWidth
+                    />
+                    <TextValidator
+
+                      margin='dense'
+                      name='postCode'
+                      label='Postleitzahl'
+                      type='number'
+                      value={postCode}
+                      validators={['required']}
+                      errorMessages={['Geben Sie eine Postleitzahl ein']}
+                      onChange={this.handleChange('postCode')}
+                      fullWidth
+                    />
+                    <TextValidator
+
+                      margin='dense'
+                      name='city'
+                      label='Ort'
+                      type='text'
+                      value={city}
+                      validators={['required']}
+                      errorMessages={['Geben Sie eine Stadt ein']}
+                      onChange={this.handleChange('city')}
+                      fullWidth
+                    />
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={this.handleToggle} color="primary">
                     Schließen
                 </Button>
-                <Button onClick={e => this.submit(e)} color="primary">
+                <Button type="submit" color="primary">
                     Senden
                 </Button>
                 </DialogActions>
-                </form>
+                </ValidatorForm>
             </Dialog> 
             
         </Fragment> 
